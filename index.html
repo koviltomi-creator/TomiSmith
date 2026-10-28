@@ -151,7 +151,7 @@
   <footer><div class="brand footer-brand"><span class="brand-mark"><i></i><i></i><i></i></span><span><strong>ARTMASTER</strong><small>MEDIA · AI SALES</small></span></div><p>MVP demó · Nincs valódi kimenő hívás vagy adattovábbítás.</p><span>2026</span></footer>
   <script>
 const $ = (s) => document.querySelector(s);
-const $$ = (s) => [...document.querySelectorAll(s)];
+const all = (s) => [...document.querySelectorAll(s)];
 
 const state = { active:false, paused:false, muted:false, seconds:0, timer:null, outcome:'Érdeklődik', messages:[], recognition:null, listening:false, speechToken:0 };
 const replies = {
@@ -260,9 +260,9 @@ $('#pauseButton').onclick=()=>{if(!state.active)return toast('Előbb indítsd el
 $('#soundToggle').onclick=()=>{state.muted=!state.muted;$('#soundToggle').style.color=state.muted?'#ff766e':'';if(state.muted){state.speechToken++;window.speechSynthesis?.cancel()}toast(state.muted?'AI-hang kikapcsolva':'AI-hang bekapcsolva')};
 $('#replyForm').onsubmit=e=>{e.preventDefault();const i=$('#replyInput');respond(i.value);i.value=''};
 $('#clearTranscript').onclick=()=>{$('#messages').innerHTML='<div class="empty-state" id="emptyTranscript"><span>◌</span><p>Az átirat a következő üzenetnél jelenik meg.</p></div>';state.messages=[]};
-$('.objection').forEach(b=>b.onclick=()=>{state.speechToken++;window.speechSynthesis?.cancel();if(!state.active)startCall(false);addMessage('user',b.querySelector('span').textContent.replaceAll('„','').replaceAll('”',''));setTimeout(()=>speak(replies[b.dataset.objection]),450)});
-$('.signal button').forEach(b=>b.onclick=()=>{$('.signal button').forEach(x=>x.classList.toggle('active',+x.dataset.level<=+b.dataset.level));$('#interestLabel').textContent=['Hideg','Hűvös','Meleg','Erős','Forró'][+b.dataset.level-1]});
-$('.outcome-options button').forEach(b=>b.onclick=()=>{$('.outcome-options button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');state.outcome=b.dataset.outcome});
+all('.objection').forEach(b=>b.onclick=()=>{state.speechToken++;window.speechSynthesis?.cancel();if(!state.active)startCall(false);addMessage('user',b.querySelector('span').textContent.replaceAll('„','').replaceAll('”',''));setTimeout(()=>speak(replies[b.dataset.objection]),450)});
+all('.signal button').forEach(b=>b.onclick=()=>{all('.signal button').forEach(x=>x.classList.toggle('active',+x.dataset.level<=+b.dataset.level));$('#interestLabel').textContent=['Hideg','Hűvös','Meleg','Erős','Forró'][+b.dataset.level-1]});
+all('.outcome-options button').forEach(b=>b.onclick=()=>{all('.outcome-options button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected');state.outcome=b.dataset.outcome});
 $('#readEmail').onclick=()=>{const e=$('#emailOne').value.trim();if(!e)return toast('Előbb add meg az e-mail-címet.');speak(`Visszaolvasom: ${spellEmail(e)}. Jól értettem?`)};
 $('#verifyEmail').onclick=()=>{const a=$('#emailOne').value.trim().toLowerCase(),b=$('#emailTwo').value.trim().toLowerCase(),v=$('#emailValidation');if(!a||!b){v.className='validation error';v.textContent='Mindkét mezőt töltsd ki.'}else if(a===b&&/^\S+@\S+\.\S+$/.test(a)){v.className='validation ok';v.textContent='✓ Az e-mail-cím egyezik és rögzíthető.'}else{v.className='validation error';v.textContent='× A két cím nem egyezik, vagy a formátum hibás.'}};
 $('#finishCall').onclick=()=>finish(true);$('#closeSummary').onclick=()=>$('#summaryDialog').close();
