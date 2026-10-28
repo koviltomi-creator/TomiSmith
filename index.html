@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="hu">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#07110e" />
+  <meta name="description" content="Artmaster Media AI Sales Agent — interaktív, szimulált értékesítési hívásdemó." />
+  <title>Artmaster Media — AI Sales Agent</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="ambient ambient-a"></div><div class="ambient ambient-b"></div>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="Artmaster Media kezdőlap">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span><strong>ARTMASTER</strong><small>MEDIA · AI SALES</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="demo-pill"><i></i> Biztonságos demó</span>
+      <button class="icon-button" id="soundToggle" aria-label="Hang be- vagy kikapcsolása" title="Hang be/ki">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H2v6h4l5 4V5Zm4.5 3.5a5 5 0 0 1 0 7M18 6a8 8 0 0 1 0 12"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="eyebrow"><span>01</span> PILOT KAMPÁNY · SZÁLLODÁK</div>
+      <h1>Az első benyomás,<br><em>emberi hangon.</em></h1>
+      <p>Próbáld ki, hogyan mutatkozik be, kérdez és kezel kifogásokat az Artmaster Media magyar nyelvű AI értékesítési asszisztense.</p>
+      <div class="hero-actions">
+        <button class="primary-button" id="launchDemo">Demó indítása <span>↗</span></button>
+        <a href="#how" class="text-link">Hogyan működik? <span>↓</span></a>
+      </div>
+      <div class="safety-note">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 4 6v5c0 5.2 3.4 8.7 8 10 4.6-1.3 8-4.8 8-10V6l-8-3Z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span><strong>Nincs valódi hívás.</strong> A mikrofon csak a böngészőben, a gyakorláshoz működik.</span>
+      </div>
+    </section>
+
+    <section class="portfolio-strip" aria-label="Artmaster Media portfólió">
+      <article class="portfolio-card active"><span>01</span><div class="port-icon">♪</div><strong>Élőzene &<br>előadók</strong><small>Aktív kampány</small></article>
+      <article class="portfolio-card"><span>02</span><div class="port-icon">✦</div><strong>Rendezvény-<br>szervezés</strong><small>Portfólió</small></article>
+      <article class="portfolio-card"><span>03</span><div class="port-icon">⌁</div><strong>Rendezvény-<br>technika</strong><small>Portfólió</small></article>
+      <article class="portfolio-card"><span>04</span><div class="port-icon">◌</div><strong>Marketing &<br>média</strong><small>Portfólió</small></article>
+      <article class="portfolio-card"><span>05</span><div class="port-icon">≋</div><strong>Stúdió & zenei<br>produkció</strong><small>Portfólió</small></article>
+    </section>
+
+    <section class="workspace-section" id="demo">
+      <div class="section-heading">
+        <div><div class="eyebrow"><span>02</span> ÉLŐ DEMÓ</div><h2>Hívásvezérlő</h2></div>
+        <div class="campaign-chip"><span>KAMPÁNY</span><strong>Szállodai élőzene · HU</strong></div>
+      </div>
+
+      <div class="workspace">
+        <section class="call-stage panel">
+          <div class="panel-kicker"><span class="status-dot" id="statusDot"></span><span id="statusText">Készen áll</span><time id="timer">00:00</time></div>
+          <div class="agent-orb" id="agentOrb" aria-label="AI hangaktivitás-jelző">
+            <div class="orb-halo"></div><div class="orb-core"><span>A</span></div>
+            <div class="wave-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+          </div>
+          <h3 id="agentState">Anna, az AI asszisztens</h3>
+          <p class="agent-label">ARTMASTER MEDIA · MAGYAR NŐI HANG</p>
+          <label class="voice-picker" for="voiceSelect"><span>Hang</span><select id="voiceSelect" aria-label="Női hang kiválasztása"><option value="">Női hang betöltése…</option></select></label>
+          <p class="current-line" id="currentLine">Indítsd el a demót, és válaszd ki, hogyan szeretnél válaszolni.</p>
+
+          <div class="call-controls">
+            <button class="round-control" id="micButton" aria-label="Mikrofon" title="Mikrofon"><svg viewBox="0 0 24 24"><path d="M12 15a4 4 0 0 0 4-4V6a4 4 0 0 0-8 0v5a4 4 0 0 0 4 4Z"/><path d="M5 10v1a7 7 0 0 0 14 0v-1M12 18v3M9 21h6"/></svg></button>
+            <button class="start-call" id="callButton"><span class="phone-icon">⌕</span><b>Demóhívás indítása</b></button>
+            <button class="round-control" id="pauseButton" aria-label="Szünet" title="Szünet"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+          </div>
+          <p class="permission-hint" id="permissionHint">A mikrofon opcionális · szövegesen is kipróbálható</p>
+        </section>
+
+        <section class="transcript panel">
+          <div class="panel-title"><div><span>ÉLŐ ÁTIRAT</span><strong>Beszélgetés</strong></div><button id="clearTranscript" class="mini-button">Törlés</button></div>
+          <div class="messages" id="messages" aria-live="polite">
+            <div class="empty-state" id="emptyTranscript"><span>◌</span><p>Az átirat a demó indításakor jelenik meg.</p></div>
+          </div>
+          <form class="reply-box" id="replyForm">
+            <input id="replyInput" autocomplete="off" placeholder="Írj választ, vagy használd a mikrofont…" aria-label="Válasz írása" />
+            <button type="submit" aria-label="Válasz elküldése">↑</button>
+          </form>
+        </section>
+
+        <aside class="customer panel">
+          <div class="panel-title"><div><span>ÜGYFÉLADATLAP</span><strong>Kapcsolat</strong></div><span class="tag">DEMÓADAT</span></div>
+          <label>Szálloda neve<input id="hotelName" value="Duna Garden Hotel (demó)" /></label>
+          <div class="field-row"><label>Kapcsolattartó<input id="contactName" value="Kovács Réka" /></label><label>Beosztás<input id="contactRole" value="Rendezvényvezető" /></label></div>
+          <label>Érdeklődési terület<select id="interest"><option>Élőzenei estek</option><option>Esküvői produkciók</option><option>Céges rendezvény</option><option>Rendezvénytechnika</option></select></label>
+          <div class="signal-row"><span>Érdeklődés</span><div class="signal"><button data-level="1"></button><button data-level="2"></button><button data-level="3" class="active"></button><button data-level="4"></button><button data-level="5"></button></div><strong id="interestLabel">Meleg</strong></div>
+          <label>Megjegyzés<textarea id="notes" rows="3" placeholder="A beszélgetés fontos részletei…"></textarea></label>
+          <div class="data-rule"><span>!</span><p>Az AI csak a beszélgetésben elhangzott vagy itt megadott adatokat használja.</p></div>
+        </aside>
+      </div>
+
+      <div class="action-grid">
+        <section class="objections panel">
+          <div class="panel-title"><div><span>GYORSSEGÉD</span><strong>Kifogáskezelés</strong></div><span class="count">4</span></div>
+          <div class="objection-list">
+            <button class="objection" data-objection="most"><span>„Ez most túl drága.”</span><i>Ár helyett érték és keret</i><b>→</b></button>
+            <button class="objection" data-objection="time"><span>„Most nincs időm.”</span><i>Engedélykérés + visszahívás</i><b>→</b></button>
+            <button class="objection" data-objection="partner"><span>„Van már partnerünk.”</span><i>Kiegészítő opció pozicionálása</i><b>→</b></button>
+            <button class="objection" data-objection="email"><span>„Küldjön inkább e-mailt.”</span><i>Engedélykérés + pontosítás</i><b>→</b></button>
+          </div>
+        </section>
+
+        <section class="email-check panel">
+          <div class="panel-title"><div><span>ADATELLENŐRZÉS</span><strong>E-mail visszaellenőrzése</strong></div><span class="step-badge">1/2</span></div>
+          <p>Az AI visszaolvassa, majd külön megerősítést kér. Hasonlítsd össze a két mezőt.</p>
+          <label>E-mail-cím<input type="email" id="emailOne" placeholder="reka@szalloda.hu" /></label>
+          <label>Megerősítés<input type="email" id="emailTwo" placeholder="Írd be újra az e-mail-címet" /></label>
+          <div class="email-actions"><button class="secondary-button" id="readEmail">Visszaolvasás</button><button class="primary-small" id="verifyEmail">Ellenőrzés</button></div>
+          <div class="validation" id="emailValidation" role="status"></div>
+        </section>
+
+        <section class="outcome panel">
+          <div class="panel-title"><div><span>HÍVÁS LEZÁRÁSA</span><strong>Eredmény</strong></div><span class="save-state" id="saveState">Nincs mentve</span></div>
+          <div class="outcome-options">
+            <button data-outcome="Érdeklődik" class="selected"><span>✓</span>Érdeklődik</button>
+            <button data-outcome="E-mail kérése"><span>↗</span>E-mail kérése</button>
+            <button data-outcome="Visszahívás"><span>◷</span>Visszahívás</button>
+            <button data-outcome="Nem releváns"><span>×</span>Nem releváns</button>
+          </div>
+          <button class="finish-button" id="finishCall">Hívás lezárása és összegzés <span>→</span></button>
+        </section>
+      </div>
+    </section>
+
+    <section class="how-section" id="how">
+      <div class="section-heading"><div><div class="eyebrow"><span>03</span> FOLYAMAT</div><h2>Átlátható minden pillanatban.</h2></div></div>
+      <div class="process-line">
+        <article><span>01</span><strong>Bemutatkozás</strong><p>Az asszisztens azonnal közli, hogy AI, és elmondja a hívás célját.</p></article>
+        <article><span>02</span><strong>Igényfelmérés</strong><p>Nyitott kérdésekkel feltárja a szálloda programjait és igényeit.</p></article>
+        <article><span>03</span><strong>Értékajánlat</strong><p>Csak a megadott portfólióból és ismert adatokból épít ajánlatot.</p></article>
+        <article><span>04</span><strong>Következő lépés</strong><p>Pontosítja az elérhetőséget, összefoglal és rögzíti az eredményt.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="summaryDialog">
+    <div class="summary-head"><div><span>HÍVÁSÖSSZEFOGLALÓ</span><h2>Sikeresen rögzítve</h2></div><button id="closeSummary" aria-label="Bezárás">×</button></div>
+    <div class="summary-body" id="summaryBody"></div>
+    <div class="summary-actions"><button class="secondary-button" id="copySummary">Összefoglaló másolása</button><button class="primary-small" id="newCall">Új demó</button></div>
+  </dialog>
+  <div class="toast" id="toast" role="status"></div>
+
+  <footer><div class="brand footer-brand"><span class="brand-mark"><i></i><i></i><i></i></span><span><strong>ARTMASTER</strong><small>MEDIA · AI SALES</small></span></div><p>MVP demó · Nincs valódi kimenő hívás vagy adattovábbítás.</p><span>2026</span></footer>
+  <script src="app.js"></script>
+</body>
+</html>
