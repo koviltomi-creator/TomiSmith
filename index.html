@@ -151,7 +151,7 @@
   <footer><div class="brand footer-brand"><span class="brand-mark"><i></i><i></i><i></i></span><span><strong>ARTMASTER</strong><small>MEDIA · AI SALES</small></span></div><p>MVP demó · Nincs valódi kimenő hívás vagy adattovábbítás.</p><span>2026</span></footer>
   <script>
 const $ = (s) => document.querySelector(s);
-const $ = (s) => [...document.querySelectorAll(s)];
+const $$ = (s) => [...document.querySelectorAll(s)];
 
 const state = { active:false, paused:false, muted:false, seconds:0, timer:null, outcome:'Érdeklődik', messages:[], recognition:null, listening:false, speechToken:0 };
 const replies = {
