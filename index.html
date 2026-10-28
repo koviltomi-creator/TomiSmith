@@ -184,16 +184,17 @@ function refreshVoices(){
   if(!('speechSynthesis' in window))return [];
   availableVoices=window.speechSynthesis.getVoices().slice().sort((a,b)=>voiceScore(b)-voiceScore(a));
   const select=$('#voiceSelect'), previous=select.value; select.innerHTML='';
-  availableVoices.filter(v=>v.lang?.toLowerCase().startsWith('hu')||femaleVoicePattern.test(v.name)).forEach(v=>{const o=document.createElement('option');o.value=v.name;o.textContent=`${femaleVoicePattern.test(v.name)?'Női':'Rendszer'} · ${v.name.replace(/Microsoft |Google /g,'')}`;select.append(o)});
-  if(previous&&availableVoices.some(v=>v.name===previous))select.value=previous; else if(availableVoices[0])select.value=availableVoices[0].name;
-  if(!select.options.length){const o=document.createElement('option');o.value='';o.textContent='Nőiesített magyar rendszerhang';select.append(o)}
+  const femaleVoices=availableVoices.filter(v=>femaleVoicePattern.test(v.name)&&!maleVoicePattern.test(v.name));
+  femaleVoices.forEach(v=>{const o=document.createElement('option');o.value=v.name;o.textContent=`Női · ${v.name.replace(/Microsoft |Google /g,'')}`;select.append(o)});
+  if(previous&&femaleVoices.some(v=>v.name===previous))select.value=previous; else if(femaleVoices[0])select.value=femaleVoices[0].name;
+  if(!select.options.length){const o=document.createElement('option');o.value='';o.textContent='Nőiesített magyar rendszerhang (demó)';select.append(o)}
   return availableVoices;
 }
 async function ensureVoices(){
   let voices=refreshVoices(); if(voices.length)return voices;
   await new Promise(resolve=>{let tries=0;const tick=()=>{voices=refreshVoices();if(voices.length||++tries>15)resolve();else setTimeout(tick,100)};window.speechSynthesis.onvoiceschanged=tick;setTimeout(tick,80)});return voices;
 }
-function chooseVoice(){const selected=$('#voiceSelect').value;return availableVoices.find(v=>v.name===selected)||availableVoices[0];}
+function chooseVoice(){const selected=$('#voiceSelect').value;return availableVoices.find(v=>v.name===selected&&!maleVoicePattern.test(v.name))||availableVoices.find(v=>femaleVoicePattern.test(v.name)&&!maleVoicePattern.test(v.name))||null;}
 function splitForSpeech(text){
   const sentences=text.match(/[^.!?;:]+[.!?;:]?/g)?.map(s=>s.trim()).filter(Boolean)||[text];
   return sentences.flatMap(sentence=>sentence.length<125?[sentence]:sentence.split(/,\s+/).reduce((parts,part)=>{const last=parts.at(-1);if(last&&(last+' '+part).length<125)parts[parts.length-1]=last+', '+part;else parts.push(part);return parts},[]));
@@ -204,7 +205,7 @@ function speakChunk(text,voice,pitch,token){
 async function speak(text){
   addMessage('ai',text); if(state.muted || !('speechSynthesis' in window)){ setStatus('Válaszra vár','listen'); return; }
   const token=++state.speechToken;setStatus('Női hang betöltése…');await ensureVoices();if(token!==state.speechToken)return;window.speechSynthesis.cancel();await new Promise(r=>setTimeout(r,70));
-  const voice=chooseVoice(), pitch=voice&&femaleVoicePattern.test(voice.name)?1.03:1.25;setStatus('AI beszél','speak');
+  const voice=chooseVoice(), pitch=voice?1.03:1.45;setStatus('AI beszél','speak');
   for(const chunk of splitForSpeech(text)){if(token!==state.speechToken)return;await speakChunk(chunk,voice,pitch,token);if(token===state.speechToken)await new Promise(r=>setTimeout(r,55));}
   if(token===state.speechToken)setStatus('Válaszra vár','listen');
 }
